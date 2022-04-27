@@ -14,10 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
+import org.springframework.test.web.servlet.ResultMatcher;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -65,7 +67,7 @@ class UserControllerTest {
     public void testGetUserCount() throws Exception{
         String json = mapper.writeValueAsString(userList);
         this.mockMvc.perform(get("/user/count").contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andExpect(jsonPath("$.count",is(4)));
     }
 
     @Test
@@ -87,6 +89,9 @@ class UserControllerTest {
     @Test
     public void testUpdateUserCount() throws Exception{
         String json = mapper.writeValueAsString(userList);
-        this.mockMvc.perform(put("/user/updateUser/{itemNumber}",4).contentType(MediaType.APPLICATION_JSON_VALUE).content(json)).andExpect(status().isOk());
+        userList.get(3).setBody("1800Flowers");
+        userList.get(3).setTitle("1800Flowers");
+        this.mockMvc.perform(put("/user/updateUser/{itemNumber}",4).contentType(MediaType.APPLICATION_JSON_VALUE).
+                content(json)).andExpect(status().isOk());
     }
 }
