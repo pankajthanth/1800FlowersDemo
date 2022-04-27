@@ -5,16 +5,13 @@ import com.flowers.Flowers.controller.UserController;
 import com.flowers.Flowers.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-//import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.ArrayList;
@@ -34,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * To change this template use File | Settings | File Templates.
  */
 
-//@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 class UserControllerTest {
