@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowers.users.controller.UserController;
 import com.flowers.users.exception.UserExceptionController;
 import com.flowers.users.model.User;
+import com.flowers.users.service.IuserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -40,6 +41,9 @@ class UserControllerTest {
 
     @Mock
     private User user;
+
+    @Mock
+    private IuserService service;
 
     @Mock
     private UserExceptionController userExceptionController;
@@ -88,12 +92,12 @@ class UserControllerTest {
 
     @Test
     public void testUpdateUserCount() throws Exception{
-        this.mockMvc.perform(put("/user/updateUser/{id}",4).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk());
+        this.mockMvc.perform(put("/user/updateUser/{id}/updatedDetails/1800Flowers",4).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk());
     }
 
     @Test
     public void testUpdateUserCountDataVerification() throws Exception{
-        this.mockMvc.perform(put("/user/updateUser/{id}",4).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andExpect(jsonPath("$[3].body", is("1800Flowers"))).andExpect(jsonPath("$[3].title", is("1800Flowers")))
+        this.mockMvc.perform(put("/user/updateUser/{id}/updatedDetails/1800Flowers",4).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andExpect(jsonPath("$[3].body", is("1800Flowers"))).andExpect(jsonPath("$[3].title", is("1800Flowers")))
                 .andExpect(jsonPath("$[3].id", is(4)));
     }
 }
