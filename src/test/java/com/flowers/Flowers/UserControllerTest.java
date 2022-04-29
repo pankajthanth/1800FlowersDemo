@@ -2,6 +2,7 @@ package com.flowers.Flowers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowers.Flowers.controller.UserController;
+import com.flowers.Flowers.exception.UserExceptionController;
 import com.flowers.Flowers.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,9 @@ class UserControllerTest {
 
     @Mock
     private User user;
+
+    @Mock
+    private UserExceptionController userExceptionController;
 
     @Autowired
     private MockMvc mockMvc;
@@ -84,9 +88,12 @@ class UserControllerTest {
 
     @Test
     public void testUpdateUserCount() throws Exception{
-        /*String json = mapper.writeValueAsString(userList);
-        userList.get(3).setBody("1800Flowers");
-        userList.get(3).setTitle("1800Flowers")*/;
         this.mockMvc.perform(put("/user/updateUser/{id}",4).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateUserCountDataVerification() throws Exception{
+        this.mockMvc.perform(put("/user/updateUser/{id}",4).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andExpect(jsonPath("$[3].body", is("1800Flowers"))).andExpect(jsonPath("$[3].title", is("1800Flowers")))
+                .andExpect(jsonPath("$[3].id", is(4)));
     }
 }
