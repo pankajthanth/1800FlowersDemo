@@ -1,4 +1,4 @@
-package com.flowers.Flowers.model;
+package com.flowers.users.model;
 
 /**
  * Created with IntelliJ IDEA.

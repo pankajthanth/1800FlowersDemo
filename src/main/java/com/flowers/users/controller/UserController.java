@@ -1,9 +1,9 @@
-package com.flowers.Flowers.controller;
+package com.flowers.users.controller;
 
-import com.flowers.Flowers.exception.UserListNotFound;
-import com.flowers.Flowers.exception.UserNotFoundException;
-import com.flowers.Flowers.model.User;
-import com.flowers.Flowers.utility.response.CountResponse;
+import com.flowers.users.exception.UserListNotFound;
+import com.flowers.users.exception.UserNotFoundException;
+import com.flowers.users.model.User;
+import com.flowers.users.utility.response.CountResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +46,7 @@ public class UserController {
         LOGGER.info("Getting Unique user count from User list");
         List<User> users = getUserListFromJson();
         if(users == null || users.size() == 0){
+            LOGGER.error("User list is empty");
             throw new UserListNotFound();
         }
         Long count = users.stream().map(User::getUserId).distinct().count();
@@ -56,12 +57,14 @@ public class UserController {
     //Update endpoint based on id on which update will perform
     @PutMapping(value="/updateUser/{id}")
     public ResponseEntity<List<User>> updateUserDetails( @PathVariable Long id) throws Exception{
-        LOGGER.info("Update call to update the user's details with ID is : ",id);
+        LOGGER.info("Update call to update the user's details with ID is : {}",id);
         if(id == null || id ==0){
+            LOGGER.error("User Id is not present");
             throw new UserNotFoundException();
         }
         List<User> users = getUserListFromJson();
         if(users == null || users.size() == 0){
+            LOGGER.error("User list is empty");
             throw new UserListNotFound();
         }
         List<User> userList = users.stream().map(u -> {

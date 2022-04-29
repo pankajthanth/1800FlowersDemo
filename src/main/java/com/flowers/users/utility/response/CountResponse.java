@@ -1,4 +1,4 @@
-package com.flowers.Flowers.utility.response;
+package com.flowers.users.utility.response;
 
 /**
  * Created with IntelliJ IDEA.

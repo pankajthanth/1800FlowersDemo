@@ -1,4 +1,4 @@
-package com.flowers.Flowers;
+package com.flowers.users;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

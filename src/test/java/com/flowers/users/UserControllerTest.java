@@ -1,9 +1,9 @@
-package com.flowers.Flowers;
+package com.flowers.users;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flowers.Flowers.controller.UserController;
-import com.flowers.Flowers.exception.UserExceptionController;
-import com.flowers.Flowers.model.User;
+import com.flowers.users.controller.UserController;
+import com.flowers.users.exception.UserExceptionController;
+import com.flowers.users.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

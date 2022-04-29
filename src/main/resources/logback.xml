@@ -24,7 +24,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.flowers.Flowers" level="INFO" additivity="false">
+    <logger name="com.flowers.users" level="INFO" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
 

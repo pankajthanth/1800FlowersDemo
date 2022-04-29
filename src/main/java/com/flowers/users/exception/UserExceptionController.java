@@ -1,4 +1,4 @@
-package com.flowers.Flowers.exception;
+package com.flowers.users.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

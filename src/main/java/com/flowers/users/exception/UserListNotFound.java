@@ -1,4 +1,4 @@
-package com.flowers.Flowers.exception;
+package com.flowers.users.exception;
 
 /**
  * Created with IntelliJ IDEA.
