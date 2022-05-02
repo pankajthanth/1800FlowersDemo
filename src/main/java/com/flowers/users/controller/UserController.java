@@ -1,9 +1,8 @@
 package com.flowers.users.controller;
 
-import com.flowers.users.exception.UserNotFoundException;
 import com.flowers.users.exception.UserUpdateDetailsNotFound;
 import com.flowers.users.model.User;
-import com.flowers.users.service.IuserService;
+import com.flowers.users.service.IBusinessLogicService;
 import com.flowers.users.utility.response.CountResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,14 +36,13 @@ public class UserController {
     private String url;
 
     @Autowired
-    private IuserService service;
+    private IBusinessLogicService service;
 
     //Get endpoint to get unique user count      /// add layer , need to implemets to java8
     @GetMapping(value="/count")
     public ResponseEntity<CountResponse> getUserCount() throws Exception {
         LOGGER.info("Getting Unique user count from User list");
-        List<User> users = service.getUserListFromJson();
-        Long count = users.stream().map(User::getUserId).distinct().count();
+        Long count = service.getUserCountFromUserList();
         LOGGER.info("unique user count from the list is : {}",count);
         return new ResponseEntity<>(new CountResponse(count),HttpStatus.OK) ;
     }
@@ -53,27 +51,10 @@ public class UserController {
     @PutMapping(value="/updateUser/{id}/updatedDetails/{details}")
     public ResponseEntity<List<User>> updateUserDetails( @PathVariable Long id,@PathVariable String details) throws Exception{
         LOGGER.info("Update call to update the user's details with ID is : {}",id);
+        List<User> users = service.getUpdateUserDetailsFromList(id,details);
 
-        Optional<Long> longOptional = Optional.ofNullable(id);
-        Long userID = longOptional.orElseThrow(Exception::new);
-
-        Optional<String> stringOptional = Optional.ofNullable(details);
-        if (!stringOptional.isPresent())throw new UserUpdateDetailsNotFound();
-
-        List<User> users = service.getUserListFromJson();
-        //Check if ID is present in the list or not
-        if(!users.stream().anyMatch(u-> u.getId()==userID)) throw new Exception();
-
-        List<User> userList = users.stream().map(u -> {
-            if(u.getId() == id){
-                u.setBody(stringOptional.get());
-                u.setTitle(stringOptional.get());
-                return u;
-            }
-            return u;
-        }).collect(Collectors.toList());
         LOGGER.info("User details updated successfully, status is : {}",HttpStatus.OK);
-        return new ResponseEntity<>(userList,HttpStatus.OK) ;
+        return new ResponseEntity<>(users,HttpStatus.OK) ;
     }
 }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowers.users.controller.UserController;
 import com.flowers.users.exception.UserExceptionController;
 import com.flowers.users.model.User;
+import com.flowers.users.service.IBusinessLogicService;
 import com.flowers.users.service.IuserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,9 @@ class UserControllerTest {
 
     @Mock
     private IuserService service;
+
+    @Mock
+    private IBusinessLogicService logicService;
 
     @Mock
     private UserExceptionController userExceptionController;
